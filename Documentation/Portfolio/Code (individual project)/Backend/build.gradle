@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id "jacoco"
+    id "org.sonarqube" version "3.5.0.2730"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-keycloak-authorization'
+    implementation 'io.quarkus:quarkus-oidc-client'
+    implementation 'io.quarkus:quarkus-oidc'
+    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
+    implementation 'io.quarkus:quarkus-hibernate-orm-rest-data-panache'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
+    implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'io.quarkus:quarkus-jdbc-mariadb'
+    implementation 'io.quarkus:quarkus-jdbc-h2:2.13.3.Final'
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-security-jpa'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'io.quarkus:quarkus-test-security'
+}
+
+group 'com.instruweb'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "Instruweb_Backend"
+        property "sonar.organization", "instruweb"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}

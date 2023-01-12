@@ -1,0 +1,33 @@
+<div class="container mt-5" *ngIf="loggedIn; else login">
+  <div class="row">
+    <div class="col-4" *ngIf="user">
+      <form (ngSubmit)="updateUser(user.username, user.address, user.postalcode, user.phonenumber)">
+        <div>
+          <p>Voornaam: <span>{{user.firstname}}</span></p>
+          <p>Achternaam: <span>{{user.lastname}}</span></p>
+          <p>Gebruikersnaam: <span>{{user.username}}</span></p>
+          <p>E-mail adres: <span>{{user.emailaddress}}</span></p>
+          <p>Adres:</p>
+          <input value="{{user.address}}" [(ngModel)]="user.address" name="address">
+          <p>Postcode:</p>
+          <input value="{{user.postalcode}}" [(ngModel)]="user.postalcode" name="postalcode">
+          <p>Telefoonnummer:</p>
+          <input value="{{user.phonenumber}}" [(ngModel)]="user.phonenumber" name="phonenumber">
+        </div>
+        <button class="btn btn-primary" type="submit">Opslaan</button>
+      </form>
+      <button (click)="doLogout()" class="btn btn-primary mt-3">Logout</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #login>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col loggedout">
+        <h2>You are logged out...</h2>
+        <p>Please <a (click)="doLogin()">login</a> to view your account!</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

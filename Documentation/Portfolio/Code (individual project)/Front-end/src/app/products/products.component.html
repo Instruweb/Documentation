@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <div class="search">
+    <form class="example-form" (ngSubmit)="searchProduct(name)">
+      <mat-form-field class="example-full-width" appearance="fill" *ngIf="productsByCategory">
+        <mat-label>Number</mat-label>
+        <input type="text"
+               [(ngModel)]="name" [ngModelOptions]="{standalone: true}"
+               placeholder="Pick one"
+               aria-label="Number"
+               matInput
+               [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" >
+          <mat-option *ngFor="let option of productsByCategory" [value]="option.name">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+
+      </mat-form-field>
+      <button mat-icon-button type="submit"><mat-icon>search</mat-icon></button>
+    </form>
+    <button class="btn btn-primary" (click)="clear()">Clear</button>
+    <div *ngIf="foundProduct" class="foundProduct">
+      <div class="card col-4">
+        <img class="card-img-top" src="/assets/images/{{foundProduct.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h3 class="card-title">{{foundProduct.name}}</h3>
+          <h4 class="card-subtitle mb-2 text-muted">&euro; {{foundProduct.price}}</h4>
+          <a [routerLink]="['/products/detail', foundProduct.id]" class="btn btn-primary">More info</a>
+        </div>
+      </div>
+    </div>
+    <span *ngIf="errorMessage">{{errorMessage}}</span>
+  </div>
+
+  <div *ngIf="!foundProduct">
+    <div *ngIf="productsByCategory.length > 0; else noProducts" class="row product-list">
+      <div class="card col-4" *ngFor="let product of productsByCategory">
+        <img class="card-img-top" src="/assets/images/{{product.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h3 class="card-title">{{product.name}}</h3>
+          <h4 class="card-subtitle mb-2 text-muted">&euro; {{product.price}}</h4>
+          <a [routerLink]="['/products/detail', product.id]" class="btn btn-primary">More info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noProducts>
+    <div class="row">
+      <div class="col">
+        <h2>No products found in this category</h2>
+        <a routerLink="/">Back</a>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

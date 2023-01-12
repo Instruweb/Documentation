@@ -1,0 +1,58 @@
+<nav>
+  <div class="container company-top-row">
+    <div class="company row">
+      <div class="col-4">
+        <a href="/">
+          <img src="/assets/images/instruweb_logo.png" alt="Instruweb logo" class="logo"/>
+        </a>
+      </div>
+      <div class="header-information col-4">
+        <div class="d-block">
+          <mat-icon class="d-inline-block">local_shipping</mat-icon>
+          <p class="d-inline-block">Gratis verzending vanaf &euro; 100,-</p>
+        </div>
+        <div class="d-block">
+          <mat-icon class="d-inline-block">access_time</mat-icon>
+          <p class="d-inline-block">Voor 21:00 besteld, morgen in huis!</p>
+        </div>
+      </div>
+      <div class="col-4 user-info" *ngIf="!loggedIn; else user">
+        <a (click)="doLogin()" class="login-btn">
+          Inloggen
+        </a>
+        <a>
+          <mat-icon aria-hidden="false" style="margin-bottom: -5px">shopping_basket</mat-icon>
+        </a>
+      </div>
+      <ng-template class="col-4 user-info" #user>
+        <div class="col-4 user-info">
+          <a [routerLink]="['/account']">
+            Profiel
+          </a>
+          <a>
+            <mat-icon aria-hidden="false" style="margin-bottom: -5px">shopping_basket</mat-icon>
+          </a>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <mat-toolbar>
+    <mat-toolbar-row class="toolbar-navigation row">
+      <button mat-icon-button class="example-icon" (click)="show()">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <a (click)="show()">Alle categorieën</a>
+      <span class="example-spacer"></span>
+    </mat-toolbar-row>
+    <mat-toolbar-row *ngIf="categories.length > 0; else noCategories" class="noCategoriesRow"></mat-toolbar-row>
+    <mat-toolbar-row *ngFor="let item of categories" class="toolbar-navigation" [ngClass]="hide ? 'hideToolbar' : 'showToolbar'">
+      <a [routerLink]="['/category', item.id]">{{item.name}}</a>
+    </mat-toolbar-row>
+
+    <ng-template #noCategories>
+      <mat-toolbar-row [ngClass]="hide ? 'hideToolbar' : 'showToolbar'" class="toolbar-navigation">
+        <p class="noCategoriesRow">No categories available</p>
+      </mat-toolbar-row>
+    </ng-template>
+  </mat-toolbar>
+</nav>

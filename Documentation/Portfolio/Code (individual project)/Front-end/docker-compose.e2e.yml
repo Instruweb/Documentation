@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  keycloak:
+    image: forevigt/instruweb:latest
+    container_name: keycloak
+    ports:
+      - "8484:8484"
+    networks:
+      - backend
+
+  mariadb:
+    image: forevigt/mariadb:latest
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+  quarkus:
+    image: forevigt/quarkus:latest
+    container_name: quarkus
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "keycloak"
+      - "mariadb"
+    networks:
+      - backend
+    restart: on-failure
+
+networks:
+  backend:
+    driver: bridge

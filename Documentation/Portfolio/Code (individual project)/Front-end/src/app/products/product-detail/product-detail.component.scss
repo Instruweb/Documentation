@@ -1,0 +1,28 @@
+.card-img-top {
+  width: 300px;
+}
+
+.spacer {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid #dfdfdf;
+  margin-bottom: 25px;
+}
+
+.small {
+  font-size: 65%;
+}
+
+.cartDiv {
+  display: inline-block;
+  width: 100%;
+  .amountInput {
+    width: 65px;
+    margin-right: 55px;
+    display: inline-block;
+  }
+  button {
+    display: inline-block;
+    width: 75%;
+  }
+}

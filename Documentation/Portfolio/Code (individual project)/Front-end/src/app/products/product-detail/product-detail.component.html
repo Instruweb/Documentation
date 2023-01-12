@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <div class="row product" *ngIf="product; else noProduct">
+    <h1 class="card-title w-100 product_title">{{product.name}}</h1>
+    <span class="spacer"></span>
+    <div class="col">
+      <img class="card-img-top" src="/assets/images/{{product.image}}" alt="Card image cap">
+    </div>
+    <div class="col">
+      <p class="card-text">Supply: {{product.supply}}<br>Voor 21:00 besteld, morgen in huis!</p>
+      <h2 class="card-subtitle mb-2">&euro; {{product.price}} <span class="small text-muted">incl. btw</span></h2>
+      <div class="cartDiv">
+        <input matInput type="number" value="1" class="amountInput form-control">
+        <button class="btn">
+          <mat-icon aria-hidden="false" style="margin-bottom: -5px">shopping_basket</mat-icon>
+          In winkelwagen
+        </button>
+      </div>
+      <span class="spacer mt-5"></span>
+      <h3>Productinformatie:</h3>
+      <p class="card-text">{{product.description}}</p>
+    </div>
+  </div>
+  <ng-template #noProduct>
+    <div class="row">
+      <div class="col">
+        <h2>Oops...</h2>
+        <p>Product not found.</p>
+      </div>
+    </div>
+  </ng-template>
+  <div class="row mt-5">
+    <h4>Gerelateerde producten</h4>
+  </div>
+  <div class="row relatedProducts" *ngIf="productsByMainCategory && product">
+    <div *ngFor="let productByCategory of productsByMainCategory">
+      <div *ngIf="productByCategory.id != product.id" >
+        <div class="card">
+          <img class="card-img-top" src="/assets/images/{{productByCategory.image}}" alt="Card image cap">
+          <div class="card-body">
+            <h3 class="card-title">{{ (productByCategory.name.length > 30)? (productByCategory.name | slice:0:30)+'...':(productByCategory.name) }}</h3>
+            <h4 class="card-subtitle mb-2 text-muted">&euro; {{productByCategory.price}}</h4>
+            <a [routerLink]="['/products/detail', productByCategory.id]" class="btn btn-primary">More info</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
